@@ -1,0 +1,36 @@
+version: 1
+threshold:
+  compliance: 100
+  coverage: 80
+dependenciesRules:
+  # adapter
+  ## handler
+  - package: "github.com/kaito2/make-friends-with-go/arch-go-sample/internal/adapter/handler"
+    shouldOnlyDependsOn:
+      internal:
+        - "github.com/kaito2/make-friends-with-go/arch-go-sample/internal/usecase"
+        # TODO: repository は外す
+        - "github.com/kaito2/make-friends-with-go/arch-go-sample/internal/domain/repository"
+  ## implement
+  - package: "github.com/kaito2/make-friends-with-go/arch-go-sample/internal/adapter/implement/factory"
+    shouldOnlyDependsOn:
+      internal:
+        - "github.com/kaito2/make-friends-with-go/arch-go-sample/internal/domain/factory"
+        - "github.com/kaito2/make-friends-with-go/arch-go-sample/internal/domain/model"
+  - package: "github.com/kaito2/make-friends-with-go/arch-go-sample/internal/adapter/implement/repository"
+    shouldOnlyDependsOn:
+      internal:
+        - "github.com/kaito2/make-friends-with-go/arch-go-sample/internal/domain/repository"
+        - "github.com/kaito2/make-friends-with-go/arch-go-sample/internal/domain/model"
+
+  # domain
+  - package: "github.com/kaito2/make-friends-with-go/arch-go-sample/internal/domain"
+    shouldOnlyDependsOn:
+      internal:
+        - "github.com/kaito2/make-friends-with-go/arch-go-sample/internal/domain"
+
+  # usecase
+  - package: "github.com/kaito2/make-friends-with-go/arch-go-sample/internal/usecase"
+    shouldOnlyDependsOn:
+      internal:
+        - "github.com/kaito2/make-friends-with-go/arch-go-sample/internal/domain"
